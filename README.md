@@ -3,13 +3,10 @@ ML.py is a standalone python pipeline for our machine learning classifier
 # Qiuck Start (With examples)
 ~~~~~~~~~~~~~~
 $ python ML.py combo -m examples/115_ko_sc_Nmp_36_genus.abundance -t KO_SC -p examples/115_ko_sc_Nmp_36_genus -c randomF -s 1
-~~~~~~~~~~~~~~
 OUTPUT: examples/
 115_ko_sc_Nmp_36_genus_combo_combo_accuracy.tsv
 
-~~~~~~~~~~~~~~
 $ python ML.py learn -m examples/115_ko_sc_Nmp_36_genus.abundance -t KO_SC -n 14 -o -p examples/ko_sc_14_model -c randomF
-~~~~~~~~~~~~~~
 OUTPUT: examples/
 ko_sc_14_model.importance
 ko_sc_14_model.model.pkl
@@ -17,11 +14,10 @@ ko_sc_14_model_ROC_curve.tsv
 ko_sc_14_model.selected_14.distribution
 ko_sc_14_model.selected_14.importance
 
-~~~~~~~~~~~~~~
 $ python ML.py randomF -m examples/46_wuhan_14_genus.ab --model example/ko_sc_14_model.model.pkl -p example/46_wuhan_14_genus
-~~~~~~~~~~~~~~
 OUTPUT: examples/
 46_wuhan_14_genus.predictions
+~~~~~~~~~~~~~~
 # USAGE
 ~~~~~~~~~~~~~~
 usage: ML.py {learn,combo,randomF,SVM} ...
