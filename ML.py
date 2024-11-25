@@ -129,7 +129,7 @@ def learn(args):
         auc = roc_auc_score(y_test, y_proba)
         logging.info(f"AUC after feature selection: {round(auc,4)}")
         
-        fpr, tpr, thresholds = roc_curve(y_test, y_proba, pos_label=y_test.unique()[1])
+        tpr, fpr, thresholds = roc_curve(y_test, y_proba, pos_label=y_test.unique()[1])
         roc_df = pd.DataFrame({'FPR': fpr, 'TPR': tpr, 'Threshold': thresholds})
         roc_df.to_csv(f"{args.prefix}_ROC_curve.tsv", sep='\t', index=False)
         logging.info(f"Curated ROC curve data saved to {args.prefix}_ROC_curve.tsv")
