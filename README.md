@@ -16,7 +16,7 @@ OUTPUT: examples/
 146_115.selected_14.distribution
 146_115.selected_14.importance
 ~~~~~~~~~~~~~~
-## Predict using model
+## Predict using established model
 ~~~~~~~~~~~~~~
 $ python MLv2.py randomF -m examples/46_wuhan_Nmp_genus.txt --model examples/146_115.model.pkl -p examples/46_wuhan_Nmp
 OUTPUT: examples/46_wuhan_Nmp.predictions
