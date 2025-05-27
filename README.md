@@ -1,26 +1,29 @@
 # ML
 ML.py is a standalone python pipeline for our machine learning classifier
 # Qiuck Start (With examples)
+## combo
 ~~~~~~~~~~~~~~
-$ python ML.py combo -m examples/115_ko_sc_Nmp_36_genus.abundance -t KO_SC -p examples/115_ko_sc_Nmp_36_genus -c randomF -s 1
+$ python MLv2.py combo -m examples/146_115_koSC_nmp_genus_core50.matrix -t KO_SC -p examples/146_115 -c randomF -s 1
+OUTPUT: examples/146_115_combo_accuracy.tsv
+~~~~~~~~~~~~~~
+## Select 8 features for training based on combo's results
+~~~~~~~~~~~~~~
+$ python MLv2.py learn -m examples/146_115_koSC_nmp_genus_core50.matrix -t KO_SC -n 8 -o -p examples/146_115 -c randomF
 OUTPUT: examples/
-115_ko_sc_Nmp_36_genus_combo_combo_accuracy.tsv
-
-$ python ML.py learn -m examples/115_ko_sc_Nmp_36_genus.abundance -t KO_SC -n 14 -o -p examples/ko_sc_14_model -c randomF
-OUTPUT: examples/
-ko_sc_14_model.importance
-ko_sc_14_model.model.pkl
-ko_sc_14_model_ROC_curve.tsv
-ko_sc_14_model.selected_14.distribution
-ko_sc_14_model.selected_14.importance
-
-$ python ML.py randomF -m examples/46_wuhan_14_genus.ab --model example/ko_sc_14_model.model.pkl -p example/46_wuhan_14_genus
-OUTPUT: examples/
-46_wuhan_14_genus.predictions
+146_115.importance
+146_115.model.pkl
+146_115_ROC_curve.tsv
+146_115.selected_14.distribution
+146_115.selected_14.importance
+~~~~~~~~~~~~~~
+## Predict using model
+~~~~~~~~~~~~~~
+$ python MLv2.py randomF -m examples/46_wuhan_Nmp_genus.txt --model examples/146_115.model.pkl -p examples/46_wuhan_Nmp
+OUTPUT: examples/46_wuhan_Nmp.predictions
 ~~~~~~~~~~~~~~
 # USAGE
 ~~~~~~~~~~~~~~
-usage: ML.py {learn,combo,randomF,SVM} ...
+usage: MLv2.py [-h] {learn,combo,randomF,SVM} ...
 
 Machine Learning model with feature importance and prediction.
 
@@ -38,7 +41,7 @@ optional arguments:
 ## First Step
 Use "combo" function to obtain the best number of feartures for second selection
 ~~~~~~~~~~~~~~
-usage: ML.py combo [-h] -m MATRIX -t TARGET -p PREFIX -c {randomF,SVM} -s STEPWISE
+usage: MLv2.py combo [-h] -m MATRIX -t TARGET -p PREFIX -c {randomF,SVM} [-b] -s STEPWISE
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -50,13 +53,14 @@ optional arguments:
                         Prefix for output files.
   -c {randomF,SVM}, --classifier {randomF,SVM}
                         Type of classifier to use.
+  -b, --boole           Flag to transfer input matrix into 1/0 format.
   -s STEPWISE, --stepwise STEPWISE
                         Step size or ratio for feature selection.
 ~~~~~~~~~~~~~~
 ## Second Step
 Use "learn" function to train the model
 ~~~~~~~~~~~~~~
-usage: ML.py learn [-h] -m MATRIX -t TARGET [-n NUM_TOPS] [--min_samples_split MIN_SAMPLES_SPLIT] [-o] [--RFE] -p PREFIX -c {randomF,SVM}
+usage: MLv2.py learn [-h] -m MATRIX -t TARGET [-n NUM_TOPS] [--min_samples_split MIN_SAMPLES_SPLIT] [-o] [--RFE] -p PREFIX -c {randomF,SVM}
                    [-e NUM_ESTIMATOR] [--min_impurity_decrease MIN_IMPURITY_DECREASE]
 
 optional arguments:
@@ -82,7 +86,7 @@ optional arguments:
 ## Third Step
 Use the model to predict
 ~~~~~~~~~~~~~~
-usage: ML.py randomF [-h] -m MATRIX --model MODEL -p PREFIX
+usage: MLv2.py randomF [-h] -m MATRIX --model MODEL -p PREFIX
 
 optional arguments:
   -h, --help            show this help message and exit
